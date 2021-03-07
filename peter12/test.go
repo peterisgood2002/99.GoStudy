@@ -55,3 +55,18 @@ func (ip IPAddr) String() string {
 
 	return result
 }
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return "cannot Sqrt negative number: " + fmt.Sprint(float64(e))
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x > 0 {
+		return 0, nil
+	} else {
+		return 0, ErrNegativeSqrt(x)
+	}
+
+}

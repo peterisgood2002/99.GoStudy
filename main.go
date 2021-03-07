@@ -8,6 +8,9 @@ import (
 
 func main() {
 
+	fmt.Println(peter12.Sqrt(2))
+	fmt.Println(peter12.Sqrt(-2))
+
 	hosts := map[string]peter12.IPAddr{
 		"loopback":  {127, 0, 0, 1},
 		"googleDNS": {8, 8, 8, 8},
