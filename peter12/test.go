@@ -70,3 +70,13 @@ func Sqrt(x float64) (float64, error) {
 	}
 
 }
+
+type MyReader struct{}
+
+func (MyReader) Read(b []byte) (n int, err error) {
+	for i, _ := range b {
+		b[i] = 'A'
+	}
+
+	return len(b), nil
+}
