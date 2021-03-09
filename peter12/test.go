@@ -2,6 +2,7 @@ package peter12
 
 import (
 	"fmt"
+	"io"
 	"strings"
 )
 
@@ -79,4 +80,46 @@ func (MyReader) Read(b []byte) (n int, err error) {
 	}
 
 	return len(b), nil
+}
+
+type Rot13Reader struct {
+	S io.Reader
+}
+
+func isAlpha(b byte) bool {
+	return (65 <= b && b <= 90) || (97 <= b && b <= 122)
+}
+
+func getR13(b byte, last byte) byte {
+	if b > last {
+		return b - 26
+	}
+
+	return b
+}
+func (r13 *Rot13Reader) Read(b []byte) (int, error) {
+
+	n, err := r13.S.Read(b)
+	if err == io.EOF {
+		return 0, err
+	}
+
+	for i, v := range b {
+		if isAlpha(v) == false {
+			continue
+		}
+		var lower = v >= 97
+		var newV = v + 13
+		if lower {
+			b[i] = getR13(newV, 122)
+
+		} else {
+			b[i] = getR13(newV, 90)
+
+		}
+
+	}
+
+	return n, err
+
 }

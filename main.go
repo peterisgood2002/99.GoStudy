@@ -2,11 +2,18 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"os"
+	"strings"
 
 	"peter12.com/demo/peter12"
 )
 
 func main() {
+
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := peter12.Rot13Reader{s}
+	io.Copy(os.Stdout, &r)
 
 	fmt.Println(peter12.Sqrt(2))
 	fmt.Println(peter12.Sqrt(-2))
